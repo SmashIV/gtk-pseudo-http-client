@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "IlvbRAG0VUg=",
+  "success": true,
+  "projectFilePath": "/home/smashiv/RiderProjects/ConsultaDNIApp/ConsultaDNIApp/ConsultaDNIApp.csproj",
+  "expectedPackageFiles": [
+    "/home/smashiv/.nuget/packages/atksharp/3.24.24.117-develop/atksharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/cairosharp/3.24.24.117-develop/cairosharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/gdksharp/3.24.24.117-develop/gdksharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/giosharp/3.24.24.117-develop/giosharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/glibsharp/3.24.24.117-develop/glibsharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/gtksharp/3.24.24.117-develop/gtksharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/newtonsoft.json/13.0.4/newtonsoft.json.13.0.4.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/pangosharp/3.24.24.117-develop/pangosharp.3.24.24.117-develop.nupkg.sha512",
+    "/home/smashiv/.nuget/packages/restsharp/112.1.1-alpha.0.4/restsharp.112.1.1-alpha.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}
