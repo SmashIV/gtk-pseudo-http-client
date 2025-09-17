@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IlvbRAG0VUg=",
+  "dgSpecHash": "+LYhp7ShcS8=",
   "success": true,
-  "projectFilePath": "/home/smashiv/RiderProjects/ConsultaDNIApp/ConsultaDNIApp/ConsultaDNIApp.csproj",
+  "projectFilePath": "/home/smashiv/Proyectos/dotnet/gtk-pseudo-http-client/ConsultaDNIApp/ConsultaDNIApp.csproj",
   "expectedPackageFiles": [
     "/home/smashiv/.nuget/packages/atksharp/3.24.24.117-develop/atksharp.3.24.24.117-develop.nupkg.sha512",
     "/home/smashiv/.nuget/packages/cairosharp/3.24.24.117-develop/cairosharp.3.24.24.117-develop.nupkg.sha512",

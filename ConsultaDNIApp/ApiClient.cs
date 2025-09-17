@@ -24,6 +24,31 @@ public sealed class ApiClient
         return client;
     }
 
+
+    public Task<string?> DeleteStringAsync(string url, string? bearerToken = null,
+        CancellationToken ct = default)
+        => SendAndReadAsync(HttpMethod.Delete, url, null, bearerToken, ct);
+
+    public Task<string?> PatchStringAsync(string url, object? payload, string? bearerToken = null,
+        CancellationToken ct = default)
+    {
+        string? raw = payload is null ? null : JsonConvert.SerializeObject(payload);
+        return SendAndReadAsync(HttpMethod.Patch, url, raw, bearerToken, ct);
+    }
+
+    public Task<string?> PatchRawJsonStringAsync(string url, string? rawJson, string? bearerToken = null,
+        CancellationToken ct = default)
+        => SendAndReadAsync(HttpMethod.Patch, url, rawJson, bearerToken, ct);
+    
+    public Task<string?> PutStringAsync(string url, object? payload ,string? bearerToken = null, CancellationToken ct = default)
+    {
+        string? raw = payload is null ? null : JsonConvert.SerializeObject(payload);
+        return SendAndReadAsync(HttpMethod.Put, url, raw, bearerToken, ct);
+    }
+
+    public Task<string?> PutRawJsonStringAsync(string url, string? rawJson, string? bearerToken = null, CancellationToken ct = default)
+    => SendAndReadAsync(HttpMethod.Put, url, rawJson, bearerToken, ct);
+    
     public Task<string?> GetStringAsync(string url, string? bearerToken = null, CancellationToken ct = default)
         => SendAndReadAsync(HttpMethod.Get, url, null, bearerToken, ct);
 

@@ -280,11 +280,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/smashiv/RiderProjects/ConsultaDNIApp/ConsultaDNIApp/ConsultaDNIApp.csproj",
+      "projectUniqueName": "/home/smashiv/Proyectos/dotnet/gtk-pseudo-http-client/ConsultaDNIApp/ConsultaDNIApp.csproj",
       "projectName": "ConsultaDNIApp",
-      "projectPath": "/home/smashiv/RiderProjects/ConsultaDNIApp/ConsultaDNIApp/ConsultaDNIApp.csproj",
+      "projectPath": "/home/smashiv/Proyectos/dotnet/gtk-pseudo-http-client/ConsultaDNIApp/ConsultaDNIApp.csproj",
       "packagesPath": "/home/smashiv/.nuget/packages/",
-      "outputPath": "/home/smashiv/RiderProjects/ConsultaDNIApp/ConsultaDNIApp/obj/",
+      "outputPath": "/home/smashiv/Proyectos/dotnet/gtk-pseudo-http-client/ConsultaDNIApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/smashiv/.nuget/NuGet/NuGet.Config"

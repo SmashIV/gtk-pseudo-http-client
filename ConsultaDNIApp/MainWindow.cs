@@ -10,6 +10,10 @@ public sealed class MainWindow : Window
     private readonly Entry _tokenEntry;
     private readonly RadioButton _getRadio;
     private readonly RadioButton _postRadio;
+    private readonly RadioButton _putRadio;
+    private readonly RadioButton _patchRadio;
+    private readonly RadioButton _deleteRadio;
+    
     private readonly Button _fetchButton;
     private readonly TextView _output;
     private readonly Label _status;
@@ -19,10 +23,11 @@ public sealed class MainWindow : Window
     private readonly VBox _builderBox;
     private readonly Button _addFieldButton;
     private readonly List<(Entry key, Entry val, HBox row)> _fieldRows = new();
-
     private readonly ApiClient _api = new();
     private CancellationTokenSource? _cts;
 
+    private readonly int _methodFlag;
+    
     public MainWindow() : base("Consulta JSON - GTK")
     {
         DefaultWidth = 1000;
@@ -30,22 +35,28 @@ public sealed class MainWindow : Window
 
         var outer = new VBox(false, 6) { BorderWidth = 8 };
 
-        _urlEntry = new Entry { Text = "https://apiperu.dev/api/dni" };
+        _urlEntry = new Entry { PlaceholderText = "https://apiperu.dev/api/dni" };
         _tokenEntry = new Entry { PlaceholderText = "Bearer Token (opcional)" };
 
         _getRadio = new RadioButton("GET");
-        _postRadio = new RadioButton(_getRadio, "POST") { Active = true };
-
+        _postRadio = new RadioButton(_getRadio, "POST") { Active = true};
+        _putRadio = new RadioButton(_postRadio, "PUT");
+        _patchRadio = new RadioButton(_putRadio, "PATCH");
+        _deleteRadio = new RadioButton(_patchRadio, "DELETE");
+        
         var methodBox = new HBox(false, 6);
         methodBox.PackStart(_getRadio, false, false, 0);
         methodBox.PackStart(_postRadio, false, false, 0);
-
+        methodBox.PackStart(_putRadio, false, false, 0);
+        methodBox.PackStart(_patchRadio, false, false, 0);
+        methodBox.PackStart(_deleteRadio, false, false, 0);
+        
         _bodyNotebook = new Notebook();
 
         _rawJsonView = new TextView { Monospace = true };
         var rawScroll = new ScrolledWindow();
         rawScroll.Add(_rawJsonView);
-        _bodyNotebook.AppendPage(rawScroll, new Label("JSON Manual"));
+        _bodyNotebook.AppendPage(rawScroll, new Label("JSON Body"));
 
         _builderBox = new VBox(false, 4);
         var builderScroll = new ScrolledWindow();
@@ -63,8 +74,8 @@ public sealed class MainWindow : Window
 
         AddFieldRow("", "");
 
-        var bodyFrame = new Frame("Cuerpo POST");
-        bodyFrame.BorderWidth = 4;
+        var bodyFrame = new Frame("Cuerpo");
+        bodyFrame.BorderWidth = 8;
         bodyFrame.Add(_bodyNotebook);
 
         _fetchButton = new Button("Enviar");
@@ -86,6 +97,7 @@ public sealed class MainWindow : Window
         outer.PackStart(responseFrame, true, true, 0);
 
         _getRadio.Toggled += (_, __) => UpdateBodySensitivity();
+        _deleteRadio.Toggled += (_, __) => UpdateBodySensitivity();
         UpdateBodySensitivity();
 
         _fetchButton.Clicked += OnFetchClicked;
@@ -97,7 +109,7 @@ public sealed class MainWindow : Window
 
     private void UpdateBodySensitivity()
     {
-        bool isGet = _getRadio.Active;
+        bool isGet = _getRadio.Active || _deleteRadio.Active;
         _bodyNotebook.Sensitive = !isGet;
     }
 
@@ -183,9 +195,28 @@ public sealed class MainWindow : Window
 
         try
         {
-            string? result = isGet
-                ? await _api.GetStringAsync(url, token, _cts.Token)
-                : await _api.PostRawJsonGetStringAsync(url, bodyJson, token, _cts.Token);
+            //TODO: Mejorar la asignacion del resultado
+            string? result = null;
+            if (_postRadio.Active)
+            {
+                result = await _api.PostRawJsonGetStringAsync(url, bodyJson, token, _cts.Token);
+            } else if (_putRadio.Active)
+            {
+                result = await _api.PutRawJsonStringAsync(url, bodyJson, token, _cts.Token);
+            }
+            else if (_patchRadio.Active)
+            {
+                result = await _api.PatchRawJsonStringAsync(url, bodyJson, token, _cts.Token);
+            }
+            else if (_deleteRadio.Active)
+            {
+                result = await _api.DeleteStringAsync(url, token, _cts.Token);
+            }
+            else
+            {
+                result = await _api.GetStringAsync(url, token, _cts.Token);
+            }
+                        
 
             if (result is null)
             {
